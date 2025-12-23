@@ -1,0 +1,17 @@
+[project]
+name = "postech-techchallenge1-api-consulta-livros"
+version = "0.1.0"
+description = ""
+authors = [
+    { name = "Gabriel-limadev", email = "gabrielvitor180701@gmail.com" }
+]
+readme = "README.md"
+requires-python = ">=3.10,<3.11"
+dependencies = ["fastapi (>=0.125.0,<0.126.0)", "uvicorn (>=0.38.0,<0.39.0)", "pydantic (>=2.12.5,<3.0.0)", "selenium (>=4.39.0,<5.0.0)", "webdriver-manager (>=4.0.2,<5.0.0)", "numpy (<2.0)", "pandas (<2.2)"]
+
+[tool.poetry]
+package-mode = false
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
