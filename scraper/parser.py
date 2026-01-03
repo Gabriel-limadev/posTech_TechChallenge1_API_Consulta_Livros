@@ -20,7 +20,7 @@ df = pd.DataFrame(books_data)
 
 
 # Cria uma conexão com o banco de dados SQLite
-conn = sqlite3.connect("books.db")
+conn = sqlite3.connect("db/books.db")
 
 # Salva o DataFrame na tabela "books"
 df.to_sql("books", conn, if_exists="replace", index=False)

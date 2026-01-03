@@ -1,0 +1,58 @@
+from fastapi import HTTPException
+from sqlmodel import Session
+from models.book import Book
+from repositories.book_repository import BookRepository
+
+class BookService:
+    def __init__(self):
+        self.repository = BookRepository()
+
+    def list_all_books(
+            self, 
+            session: Session
+        ) -> list[Book]: # Retorno deve ser uma lista com um ou mais livros
+        
+        # Retorna todos os livros disponiveis na base
+        return self.repository.get_all_books(session)
+    
+    def list_book_by_id(
+            self, 
+            session: Session, 
+            book_id: int
+        ) -> Book: # Retorno deve ser apenas um livro.
+        
+        # Busca o livro de acordo com o id passado
+        book = self.repository.get_book_by_id(session, book_id)
+
+        # Caso não seja achado nenhum livro, é retornado um erro.
+        if not book: 
+            raise HTTPException(status_code=404, detail='Book not found!')
+        return book
+    
+    def list_books_by_title_or_category(
+            self, 
+            session: Session, 
+            book_title: str | None = None, # Valor padrão None caso não seja passado esse parametro na url 
+            book_category: str | None = None # Valor padrão None caso não seja passado esse parametro na url
+        ) -> list[Book]: # Retorno deve ser uma lista com um ou mais livros
+
+        # É necessario que contenha pelo menos um filtro, se não retornará uma mensagem de erro.
+        if not book_title and not book_category:
+            raise HTTPException(status_code=400, detail = 'You must inform title or category!')
+        
+        # Busca livros de acordo com o title e category passados
+        books = self.repository.get_book_by_title_or_category(session, book_title, book_category)
+
+        # Caso não aja resultado de livros será retornado um erro.
+        if not books:
+            raise HTTPException(status_code = 404, detail='No books found!')
+
+        return books
+    
+    def list_all_categories(
+            self,
+            session: Session
+    ) -> list[str]:
+        categories = self.repository.get_all_categories(session)
+
+        return categories

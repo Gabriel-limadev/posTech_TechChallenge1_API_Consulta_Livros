@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from api.v1.router import router as api_v1_router
 
 app = FastAPI(
     title="Consulta Livros API",
@@ -6,6 +7,4 @@ app = FastAPI(
     description="API de consulta de biblioteca de livros."
 )
 
-@app.get("/")
-async def home():
-    return "Hello, FastAPI" 
+app.include_router(api_v1_router, prefix="/api/v1")
