@@ -80,7 +80,7 @@ class BookScraper:
         """
         Acessa a página individual de um livro e extrai todas as informações relevantes.
 
-        Args:
+        Parametros:
             book_link (str): URL da página do livro
 
         Retorna:

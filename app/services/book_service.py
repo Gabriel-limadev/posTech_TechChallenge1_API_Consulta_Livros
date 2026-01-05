@@ -10,18 +10,20 @@ class BookService:
     def list_all_books(
             self, 
             session: Session
-        ) -> list[Book]: # Retorno deve ser uma lista com um ou mais livros
-        
-        # Retorna todos os livros disponiveis na base
+        ) -> list[Book]: 
+        '''
+        Retorna uma lista com todos os livros
+        '''
         return self.repository.get_all_books(session)
     
     def list_book_by_id(
             self, 
             session: Session, 
             book_id: int
-        ) -> Book: # Retorno deve ser apenas um livro.
-        
-        # Busca o livro de acordo com o id passado
+        ) -> Book: 
+        ''' 
+        Retorna apenas um livro de acordo com o id passado
+        '''
         book = self.repository.get_book_by_id(session, book_id)
 
         # Caso não seja achado nenhum livro, é retornado um erro.
@@ -34,8 +36,10 @@ class BookService:
             session: Session, 
             book_title: str | None = None, # Valor padrão None caso não seja passado esse parametro na url 
             book_category: str | None = None # Valor padrão None caso não seja passado esse parametro na url
-        ) -> list[Book]: # Retorno deve ser uma lista com um ou mais livros
-
+        ) -> list[Book]: 
+        ''' 
+        Retorna uma lista com um ou mais livros de acordo com o filtro
+        ''' 
         # É necessario que contenha pelo menos um filtro, se não retornará uma mensagem de erro.
         if not book_title and not book_category:
             raise HTTPException(status_code=400, detail = 'You must inform title or category!')
@@ -53,6 +57,8 @@ class BookService:
             self,
             session: Session
     ) -> list[str]:
+        '''
+        Retorna todas as categorias existentes
+        '''
         categories = self.repository.get_all_categories(session)
-
         return categories

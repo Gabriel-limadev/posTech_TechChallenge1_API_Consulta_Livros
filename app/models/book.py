@@ -1,6 +1,9 @@
 from sqlmodel import Field, SQLModel
 
 class Book(SQLModel, table=True):
+    '''
+    Cria o model da tabela Books
+    '''
     __tablename__ = "books"
     id: int = Field(primary_key=True)
     title: str = Field(index=True)

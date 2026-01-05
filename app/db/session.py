@@ -12,5 +12,8 @@ engine = create_engine(
 )
 
 def get_session():
+    '''
+    Cria uma sessão do banco de dados
+    '''
     with Session(engine) as session:
         yield session

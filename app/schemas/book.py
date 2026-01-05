@@ -1,6 +1,9 @@
 from pydantic import BaseModel
 
 class BookResponse(BaseModel):
+    '''
+    Cria um schema para validar saidas da API
+    '''
     id: int
     title: str
     price: float

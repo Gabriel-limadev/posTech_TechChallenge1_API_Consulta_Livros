@@ -6,6 +6,9 @@ class HealthService:
             self, 
             session: Session
         ) -> dict: 
+        '''
+        Retorna o status de saude da API
+        '''
         try:
             session.exec(select(1)).first()
             return {
