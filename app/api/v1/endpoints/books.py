@@ -20,7 +20,7 @@ def get_all_books(session: Session = Depends(get_session)):
     '''
     return service.list_all_books(session)
 
-@router.get('/books/search', response_model=List[BookResponse])
+@router.get('/search', response_model=List[BookResponse])
 def get_book_by_title_or_category(title: str | None = None, category: str | None = None, session: Session = Depends(get_session)):
     '''
     Lista livros com filtro de titulo e/ou categoria 
@@ -30,7 +30,7 @@ def get_book_by_title_or_category(title: str | None = None, category: str | None
     '''
     return service.list_books_by_title_or_category(session, title, category)
 
-@router.get('/books/{id}', response_model=BookResponse)
+@router.get('/{id}', response_model=BookResponse)
 def get_book_by_id(id: int, session: Session = Depends(get_session)):
     '''
     Lista livro de acordo com id
