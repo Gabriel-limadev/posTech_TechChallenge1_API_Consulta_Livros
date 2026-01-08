@@ -1,6 +1,8 @@
 from fastapi import APIRouter, Depends
 from sqlmodel import Session
 from typing import List
+from app.core.security import get_current_user
+from app.models.auth import Auth
 
 from app.db.session import get_session
 from app.services.book_service import BookService
@@ -10,7 +12,9 @@ service = BookService()
 
 ### Rotas de categoria
 @router.get('/', response_model=List[str])
-def get_all_categories(session: Session = Depends(get_session)):
+def get_all_categories(
+    session: Session = Depends(get_session)
+    ):
     '''
     Lista todos as categorias
     ---

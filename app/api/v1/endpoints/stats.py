@@ -4,13 +4,13 @@ from typing import List
 
 from app.db.session import get_session
 from app.services.stats_service import StatsService
-from app.schemas.stats import StatsOverview, StatsCategories
+from app.schemas.stats import StatsOverviewResponse, StatsCategoriesResponse
 
 router = APIRouter()
 service = StatsService()
 
 ### Rota de stats
-@router.get('/overview', response_model=StatsOverview)
+@router.get('/overview', response_model=StatsOverviewResponse)
 def get_all_books(session: Session = Depends(get_session)):
     '''
     Lista todos as informações sobre as estatisticas dos livros
@@ -20,7 +20,7 @@ def get_all_books(session: Session = Depends(get_session)):
     '''
     return service.list_stats_overview(session)
 
-@router.get('/categories', response_model=List[StatsCategories])
+@router.get('/categories', response_model=List[StatsCategoriesResponse])
 def get_all_books(session: Session = Depends(get_session)):
     '''
     Lista todos as informações sobre as estatisticas das categorias

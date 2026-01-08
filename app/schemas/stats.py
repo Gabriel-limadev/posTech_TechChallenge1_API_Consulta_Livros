@@ -4,7 +4,7 @@ class RatingDistribution(BaseModel):
     rating: int
     quantidade: int
 
-class StatsOverview(BaseModel):
+class StatsOverviewResponse(BaseModel):
     '''
     Cria um schema para validar saidas da API de stats Overview
     '''
@@ -12,7 +12,7 @@ class StatsOverview(BaseModel):
     preco_medio: float
     distribuicao_ratings: list[RatingDistribution]
 
-class StatsCategories(BaseModel):
+class StatsCategoriesResponse(BaseModel):
     '''
     Cria um schema para validar saidas da API de stats Categories
     '''
