@@ -3,7 +3,7 @@ from sqlmodel import Session
 
 from app.db.session import get_session
 from app.services.auth_service import AuthService
-from app.schemas.auth import UserCreate, UserResponse, TokenResponse
+from app.schemas.auth import UserCreate, UserResponse, TokenResponse, LoginRequest
 
 router = APIRouter()
 service = AuthService()
@@ -18,10 +18,12 @@ def register(user: UserCreate, session: Session = Depends(get_session)):
 
 # Rota de login
 @router.post('/login', response_model=TokenResponse)
-def login(username: str, password: str, session: Session = Depends(get_session)):
+def login(data: LoginRequest, session: Session = Depends(get_session)):
     '''
     Realiza login e retorna um token JWT
     '''
+    username = data.username
+    password = data.password
     return service.login(session, username, password)
 
 # Rota de Refresh 
