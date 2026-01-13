@@ -6,18 +6,11 @@ O projeto foi desenvolvido como **1° trabalho na Pós em Engenharia de Machine 
 ---
 
 ## 🌐 API em Produção
-
-A API está disponível em produção no Render:
-
-👉 **https://books-api-j70z.onrender.com/api/v1**
-
-Documentação:
-
-👉 **https://books-api-j70z.onrender.com/docs**
-
-Verificar a saúde da API:
-
-👉 **https://books-api-j70z.onrender.com/api/v1/health**
+``` code
+Rota inicial:  https://books-api-j70z.onrender.com/api/v1
+Documentação:  https://books-api-j70z.onrender.com/docs
+Status da API: https://books-api-j70z.onrender.com/api/v1/health
+```
 
 ---
 
@@ -105,16 +98,78 @@ Books_API/
 
 ---
 
+### 🚀 Como utilizar a API
+
+A API possui autenticação via **JWT (Bearer Token)**. Para consumir as rotas protegidas, é necessário realizar o cadastro e o login do usuário.
+
+---
+
+#### 1️⃣ Cadastro de usuário
+
+Realize o cadastro através da rota: 
+``` code
+POST /api/v1/auth/register
+```
+Informe o username e o password no corpo da requisição.
+```code
+{
+    "username": str,
+    "password": str
+}
+```
+
+---
+
+#### 2️⃣ Login
+
+Após o cadastro, realize o login na rota: POST /api/v1/auth/login
+
+Essa requisição retornará um **token de acesso (JWT)**, que será necessário para acessar as demais rotas da API.
+
+Informe o username e o password no corpo da requisição.
+```code
+{
+    "username": str,
+    "password": str
+}
+```
+---
+
+#### 3️⃣ Utilizando a API pelo Swagger (/docs)
+
+1. Acesse o endpoint `/docs`
+2. Clique no botão **Authorize**
+3. Cole o token no formato: Bearer SEU_TOKEN_AQUI
+4. Após a autenticação, as rotas protegidas estarão liberadas para consumo.
+
+---
+
+#### 4️⃣ Utilizando a API pelo Postman
+
+1. Crie uma nova requisição no Postman
+2. Vá até a aba **Authorization**
+3. Em **Auth Type**, selecione **Bearer Token**
+4. Cole o token de acesso no campo correspondente
+5. Execute a requisição normalmente
+
+---
+
+Com o token configurado, será possível acessar todas as rotas protegidas da API.
+
+---
+
 ## 📄 Exemplos de Requests e Responses
 
-### 🔹 Verificar saude da API
+### 🔹 Verificar saúde da API
 **Request**
 ```http
 GET /api/v1/health
 ```
 **Response**
 ```code
-"string"
+{
+  "status": "ok"
+}
 ```
 
 ### 🔹 Realizar cadastro
@@ -369,6 +424,62 @@ Caso queira **Rodar a API em sua máquina local**
    uvicorn app.main:app --reload
 
 A API ficará disponivel localmente em: http://127.0.0.1:8000/api/v1
+
+## 🏗️ Plano Arquitetural
+
+### 🔄 Pipeline de Dados
+
+O fluxo de dados do sistema inicia na coleta de informações a partir do site **Books to Scrape**, passando por um processo de scraping e tratamento dos dados, que são posteriormente armazenados em um banco de dados SQLite.
+
+A API desenvolvida com **FastAPI** é responsável por expor esses dados por meio de endpoints REST, utilizando autenticação **JWT** para controle de acesso. A API pode ser consumida por aplicações externas ou ferramentas de teste de API, como Postman e Swagger.
+
+<p align="center">
+  <img width="1100" height="850" alt="Pipeline" src="https://github.com/user-attachments/assets/9299aad8-ec1f-4da2-97fa-f2897dcd03de" />
+</p>
+
+---
+
+### 📈 Escalabilidade Futura
+
+A arquitetura da aplicação foi desenvolvida de forma **modular**, permitindo sua evolução sem a necessidade de grandes refatorações. A separação entre ingestão de dados, persistência e exposição via API facilita a substituição ou melhoria de componentes conforme o crescimento do projeto.
+
+Como possibilidades de escalabilidade futura, destacam-se:
+
+- Substituição do banco de dados SQLite por um banco relacional mais robusto, como **PostgreSQL** ou **MySQL**.
+- Containerização da aplicação utilizando **Docker**, facilitando o deploy em ambientes de nuvem.
+- Implantação em provedores cloud, como **AWS**, **GCP** ou **Render**, com suporte a múltiplas instâncias.
+- Implementação de cache (ex.: **Redis**) para melhorar a performance em requisições frequentes.
+- Automatização do pipeline de ingestão de dados por meio de tarefas agendadas.
+
+Essa abordagem garante que a API possa crescer em volume de dados e número de usuários sem comprometer sua estrutura.
+
+---
+
+### 📊 Cenário de Uso para Cientistas de Dados e Machine Learning
+
+A API também foi pensada para atender **cientistas de dados e analistas**, servindo como uma fonte centralizada e confiável de dados.
+
+Os dados disponibilizados pela API podem ser consumidos para:
+
+- Análises exploratórias dos livros cadastrados.
+- Criação de dashboards analíticos.
+- Estudos estatísticos sobre preços, categorias e avaliações.
+
+Dessa forma, a API atua como uma camada intermediária entre o banco de dados e os processos analíticos, evitando o acesso direto ao banco e garantindo padronização no consumo dos dados.
+
+---
+
+### 🤖 Plano de Integração com Modelos de Machine Learning
+
+A arquitetura permite a integração futura com modelos de **Machine Learning** de forma desacoplada. Os dados fornecidos pela API podem ser utilizados para treinamento de modelos, enquanto a inferência pode ser realizada por meio de novos endpoints.
+
+Um possível fluxo de integração seria:
+
+- Extração dos dados da API para treinamento de modelos de ML.
+- Armazenamento do modelo treinado.
+- Criação de um endpoint específico na API (ex.: `/predict`) para realizar previsões em tempo real.
+
+Essa abordagem possibilita a evolução do sistema para casos de uso mais avançados, como sistemas de recomendação ou previsão de preços, sem impactar negativamente a API principal.
 
 ## 👨‍💻 Autor
 
