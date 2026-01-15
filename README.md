@@ -157,7 +157,7 @@ Informe o username e o password no corpo da requisição.
 
 ---
 
-Com o token configurado, será possível acessar todas as rotas protegidas da API.
+Com o token configurado, será possível acessar a rota de scraping da API.
 
 ---
 
@@ -394,7 +394,7 @@ O site utilizado como fonte dos dados foi:
 
 Para facilitar o uso da API e a avaliação do projeto, o arquivo **`books.db` já está incluído no repositório**.  
 Dessa forma, a API pode ser executada imediatamente, sem a necessidade de rodar o scraper pela rota.
-Porém caso queira fazer o scraper, utilize a rota api/v1//scraping para atualizar a tabela
+Porém caso queira fazer o scraper, utilize a rota api/v1/scraping para atualizar a tabela.
 
 ---
 
@@ -426,7 +426,7 @@ O fluxo de dados do sistema inicia na coleta de informações a partir do site *
 A API desenvolvida com **FastAPI** é responsável por expor esses dados por meio de endpoints REST, utilizando autenticação **JWT** para controle de acesso. A API pode ser consumida por aplicações externas ou ferramentas de teste de API, como Postman e Swagger.
 
 <p align="center">
-  <img width="1100" height="850" alt="Pipeline" src="https://github.com/user-attachments/assets/9299aad8-ec1f-4da2-97fa-f2897dcd03de" />
+  <img width="1100" height="850" alt="Pipeline" src="https://github.com/user-attachments/assets/a086a197-f6d3-4db7-b8ce-00572e37bf3f" />
 </p>
 
 ---
